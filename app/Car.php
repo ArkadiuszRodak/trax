@@ -18,6 +18,16 @@ class Car extends Model
         'model',
     ];
 
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::deleting(function ($car) {
+            $car->trips()->delete();
+        });
+    }
+
+
     public function trips(): HasMany
     {
         return $this->hasMany(Trip::class);
