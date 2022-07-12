@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarController;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -14,9 +15,18 @@ use Carbon\Carbon;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+Route::middleware(['auth:api'])->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::resource('cars', CarController::class)->only([
+        'index',
+        'show',
+        'store',
+        'destroy',
+    ]);
+});
 
 
 //////////////////////////////////////////////////////////////////////////

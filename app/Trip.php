@@ -9,6 +9,8 @@ class Trip extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public function car(): BelongsTo
     {
         return $this->belongsTo(Car::class);
