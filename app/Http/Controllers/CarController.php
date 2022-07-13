@@ -27,7 +27,7 @@ class CarController extends Controller
     {
         $this->authorize('view', $car);
 
-        $car->loadCount('trips')->loadSum('trips', 'miles');
+        $car->loadCount('trips')->load('latestTrip');
 
         return new CarResource($car);
     }
