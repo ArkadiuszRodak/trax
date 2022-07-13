@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +21,7 @@ class CarFactory extends Factory
             'make' => $this->faker->lastName(),
             'model' => $this->faker->colorName(),
             'year' => $this->faker->numberBetween(1990, 2022),
+            'user_id' => User::factory(),
         ];
     }
 }

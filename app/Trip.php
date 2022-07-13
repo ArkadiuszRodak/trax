@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,8 +25,15 @@ class Trip extends Model
     {
         parent::boot();
 
-        static::creating(function ($trip) {
+        static::creating(function (Trip $trip) {
             $trip->total = static::where('car_id', $trip->car_id)->sum('miles') + $trip->miles;
+        });
+    }
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope('owned', function (Builder $query) {
+            $query->has('car'); // apply global scope from Car model
         });
     }
 

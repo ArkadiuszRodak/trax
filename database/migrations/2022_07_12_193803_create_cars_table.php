@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('make', 100);
             $table->string('model', 100);
             $table->smallInteger('year');
+            $table->integer('user_id');
         });
     }
 
