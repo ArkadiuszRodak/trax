@@ -1,0 +1,1 @@
+{"version":1,"defects":{"Tests\\Unit\\CarTest::testUserCanSeeCars":4},"times":{"Tests\\Unit\\CarTest::testBasicTest":1.236,"Tests\\Unit\\CarTest::testUserCanSeeCars":9.592}}
