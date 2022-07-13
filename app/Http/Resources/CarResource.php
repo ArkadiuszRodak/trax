@@ -14,7 +14,7 @@ class CarResource extends JsonResource
             'model' => $this->model,
             'year' => $this->year,
             'trip_count' => $this->when(is_numeric($this->trips_count), fn() => $this->trips_count),
-            'trip_miles' => $this->when($this->latestTrip, fn() => $this->latestTrip->total),
+            'trip_miles' => $this->when(is_numeric($this->total), fn() => $this->total),
         ];
     }
 }
