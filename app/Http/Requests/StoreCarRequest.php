@@ -14,9 +14,9 @@ class StoreCarRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'year' => 'required|integer',
-            'make' => 'required|string',
-            'model' => 'required|string',
+            'year' => ['required', 'integer', 'min:1900', 'max:' . today()->format('Y')],
+            'make' => ['required', 'string', 'min:2', 'max:100'],
+            'model' => ['required', 'string', 'min:2', 'max:100'],
         ];
     }
 }

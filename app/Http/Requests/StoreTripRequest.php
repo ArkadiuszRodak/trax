@@ -14,9 +14,9 @@ class StoreTripRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date' => 'required|date', // ISO 8601 string
-            'car_id' => 'required|integer',
-            'miles' => 'required|numeric'
+            'date' => ['required', 'date', 'before_or_equal:' . today()],
+            'car_id' => ['required', 'integer', 'exists:cars,id'],
+            'miles' => ['required', 'numeric', 'min:0.1'],
         ];
     }
 }
