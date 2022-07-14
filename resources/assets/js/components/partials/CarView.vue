@@ -2,7 +2,12 @@
   <div>
     <v-layout row style="margin-bottom: 20px">
       <v-flex xs10>
-        <h1>{{ year }} {{ make }} {{ model }}</h1>
+        <h1>
+          <span v-if="isLoading">Loading...</span>
+          <template v-else>
+            {{ year }} {{ make }} {{ model }}
+          </template>
+        </h1>
       </v-flex>
       <v-flex xs2 style="text-align: right">
         <v-btn class="error" @click="deleteSelected">Delete</v-btn>
@@ -13,7 +18,7 @@
         <h3>Number of Trips</h3>
       </v-flex>
       <v-flex xs9>
-        <h3>{{ trip_count }}</h3>
+        <h3>{{ isLoading ? 'Loading...' : trip_count }}</h3>
       </v-flex>
     </v-layout>
     <v-layout row>
@@ -21,7 +26,7 @@
         <h3>Total Trip Miles</h3>
       </v-flex>
       <v-flex xs9>
-        <h3>{{ trip_miles }}</h3>
+        <h3>{{ isLoading ? 'Loading...' : trip_miles }}</h3>
       </v-flex>
     </v-layout>
 
@@ -38,6 +43,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       year: null,
       make: null,
       model: null,
@@ -47,6 +53,8 @@ export default {
   },
   methods: {
     fetch() {
+      this.isLoading = true;
+
       axios.get(traxAPI.getCarEndpoint(this.$route.params.id))
         .then(response => {
           this.year = response.data.data.year;
@@ -57,6 +65,9 @@ export default {
         })
         .catch(e => {
           console.log(e);
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     deleteSelected() {
