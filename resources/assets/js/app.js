@@ -1,3 +1,4 @@
+import NProgress from 'vue-nprogress'
 import Vue from 'vue';
 
 require('./bootstrap');
@@ -15,14 +16,17 @@ import CarView from './components/partials/CarView.vue';
 import NewCarView from './components/partials/NewCarView.vue';
 import NewTripView from './components/partials/NewTripView.vue';
 
-Vue.use(VueRouter)
-Vue.use(Vuetify)
+Vue.use(NProgress);
+Vue.use(VueRouter);
+Vue.use(Vuetify);
 
 Vue.component('trips-view', TripsView);
 Vue.component('cars-view', CarsView);
 Vue.component('car-view', CarView);
 Vue.component('new-car-view', NewCarView);
 Vue.component('new-trip-view', NewTripView);
+
+const nprogress = new NProgress()
 
 // Create Router
 const router = new VueRouter({
@@ -31,6 +35,7 @@ const router = new VueRouter({
 
 new Vue({
   el: '#app',
+  nprogress,
   router,
   render: h => h(App),
 });

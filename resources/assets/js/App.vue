@@ -59,17 +59,20 @@
       <v-container
         fluid
       >
-        <router-view></router-view>
+        <nprogress-container/>
+        <router-view />
       </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
+import NprogressContainer from 'vue-nprogress/src/NprogressContainer';
 import TripsView from './components/partials/TripsView.vue';
 
 export default {
   components: {
+    NprogressContainer,
     TripsView,
   },
   props: [],
