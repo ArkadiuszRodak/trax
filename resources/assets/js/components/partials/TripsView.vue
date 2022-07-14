@@ -8,11 +8,12 @@
     <v-layout>
       <v-flex xs12>
         <v-data-table
+          :loading="isLoading"
           :headers="headers"
           :items="items"
-          hide-actions
           :disable-initial-sort="true"
           class="elevation-1"
+          hide-actions
         >
           <template slot="items" slot-scope="props">
             <td>{{ props.item.date }}</td>
@@ -35,6 +36,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       items: [],
       headers: [
         {text: 'Date', value: 'date'},
@@ -48,12 +50,17 @@ export default {
   computed: {},
   methods: {
     fetch() {
+      this.isLoading = true;
+
       axios.get(traxAPI.getTripsEndpoint())
         .then(response => {
           this.items = response.data.data;
         })
         .catch(e => {
           console.log(e);
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     addTripSelected() {

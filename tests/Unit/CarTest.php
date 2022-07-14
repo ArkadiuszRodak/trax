@@ -62,7 +62,7 @@ class CarTest extends TestCase
 
         $this->login()
             ->json('post', url(static::URL), $car->toArray())
-            ->assertOk();
+            ->assertStatus(Response::HTTP_CREATED);
     }
 
     public function testUserCantCreateNotValidatedCar()
@@ -95,7 +95,7 @@ class CarTest extends TestCase
 
         $this->login()
             ->json('delete', url(static::URL . $car->id))
-            ->assertOk();
+            ->assertStatus(Response::HTTP_NO_CONTENT);
     }
 
     public function testCarHasTrips()

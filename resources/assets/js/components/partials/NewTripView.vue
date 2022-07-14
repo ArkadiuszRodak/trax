@@ -22,6 +22,7 @@
     ></v-text-field>
 
     <v-btn
+      :loading="isLoading"
       :disabled="!valid"
       @click="submit"
     >
@@ -45,6 +46,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       valid: true,
       cars: [],
       date: null,
@@ -77,6 +79,8 @@ export default {
     },
     submit() {
       if (this.$refs.form.validate()) {
+        this.isLoading = true;
+
         axios.post(traxAPI.addTripEndpoint(), {
           date: this.date.toISOString(),
           car_id: this.car,
@@ -87,6 +91,9 @@ export default {
           })
           .catch(e => {
             console.log(e);
+          })
+          .finally(() => {
+            this.isLoading = false;
           });
       }
     },

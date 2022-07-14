@@ -1,26 +1,34 @@
 <template>
-  <v-menu ref="datePicker"
-          :disabled="disabled"
-          :close-on-content-click="false"
-          v-model="showPicker"
-          :nudge-right="40"
-          lazy
-          transition="scale-transition"
-          offset-y
-          full-width
+ <v-menu
+    ref="datePicker"
+    v-model="showPicker"
+    :disabled="disabled"
+    :close-on-content-click="false"
+    :nudge-right="40"
+    transition="scale-transition"
+    lazy
+    offset-y
+
   >
-    <v-text-field
-      :disabled="disabled"
-      slot="activator"
-      v-model="textFieldValue"
-      :label="label"
-      :clearable="!disabled"
-      :readonly="true"
-      persistent-hint
-      append-icon="event"
-      :rules="rules"
-    ></v-text-field>
-    <v-date-picker v-model="pickerValue" no-title @input="showPicker = false"></v-date-picker>
+    <template #activator="{ on }">
+      <v-text-field
+        v-model="textFieldValue"
+        v-on="on"
+        :label="label"
+        :rules="rules"
+        :disabled="disabled"
+        :clearable="!disabled"
+        slot="activator"
+        append-icon="event"
+        persistent-hint
+        readonly
+      />
+    </template>
+    <v-date-picker
+      v-model="pickerValue"
+      no-title
+      @input="showPicker = false"
+    />
   </v-menu>
 </template>
 
@@ -114,3 +122,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.v-menu__content {
+  /* Fix too wide menu container (Is it Vuetify old version bug?) */
+  min-width: 0 !important;
+}
+</style>

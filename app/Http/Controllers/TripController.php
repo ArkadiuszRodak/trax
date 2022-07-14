@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Trip;
 use App\Http\Requests\StoreTripRequest;
 use App\Http\Resources\TripCollection;
-use App\Trip;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class TripController extends Controller
 {
@@ -15,10 +17,12 @@ class TripController extends Controller
         return new TripCollection(Trip::with(['car'])->get());
     }
 
-    public function store(StoreTripRequest $request): void
+    public function store(StoreTripRequest $request): JsonResponse
     {
         $this->authorize('create', Trip::class);
 
-        Trip::create($request->validated());
+        $trip = Trip::create($request->validated());
+
+        return response()->json(['data' => $trip], Response::HTTP_CREATED);
     }
 }
