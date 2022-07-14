@@ -1,3 +1,21 @@
+# Solution of Shiftkey LLC recruitment task
+
+## Base task
+
+- Laravel DB migrations, models and factories
+- Laravel API routes
+- Laravel Resource controllers
+- Laravel policies for cars and trips
+
+## Additional frontend work
+
+- Vue components and Vue router progress bars
+- Loading indicators after submit
+- Fixed datepicker component style
+
+---
+---
+
 # Laravel Backend Coding Simulation
 
 ## Trax Milage Tracking Application
