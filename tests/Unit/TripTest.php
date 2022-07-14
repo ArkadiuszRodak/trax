@@ -30,7 +30,7 @@ class TripTest extends TestCase
 
         $this->login()
             ->json('post', url(static::URL), $trip->toArray())
-            ->assertOk();
+            ->assertStatus(Response::HTTP_CREATED);
     }
 
     public function testUserCantCreateNotValidatedTrip()
