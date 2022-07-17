@@ -7,11 +7,14 @@
 - Laravel Resource controllers
 - Laravel policies for cars and trips
 
-## Additional frontend work
+## Additional frontend work (for fun)
 
 - Vue components and Vue router progress bars
 - Loading indicators after submit
+- Loading indicator in car select component
+- Showing validation errors in forms
 - Fixed datepicker component style
+- Webpack alias for JS sources
 
 ---
 ---
