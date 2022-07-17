@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import {traxAPI} from "../../traxAPI";
+import { traxAPI } from "@/traxAPI";
 
 export default {
   mounted() {

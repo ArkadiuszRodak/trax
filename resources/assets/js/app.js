@@ -6,15 +6,15 @@ require('./bootstrap');
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import VueRouter from 'vue-router'
-import App from './App.vue'
-import routes from './routes';
+import App from '@/App.vue'
+import routes from '@/routes';
 
 // Components
-import TripsView from './components/partials/TripsView.vue';
-import CarsView from './components/partials/CarsView.vue';
-import CarView from './components/partials/CarView.vue';
-import NewCarView from './components/partials/NewCarView.vue';
-import NewTripView from './components/partials/NewTripView.vue';
+import TripsView from '@/components/partials/TripsView.vue';
+import CarsView from '@/components/partials/CarsView.vue';
+import CarView from '@/components/partials/CarView.vue';
+import NewCarView from '@/components/partials/NewCarView.vue';
+import NewTripView from '@/components/partials/NewTripView.vue';
 
 Vue.use(NProgress);
 Vue.use(VueRouter);

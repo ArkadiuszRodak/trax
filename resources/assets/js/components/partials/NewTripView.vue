@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import {traxAPI} from "../../traxAPI";
-import DatePicker from "../common/DatePicker";
+import { traxAPI } from "@/traxAPI";
+import DatePicker from "@/components/common/DatePicker";
 
 export default {
   components: {
