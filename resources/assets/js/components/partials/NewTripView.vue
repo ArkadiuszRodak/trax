@@ -1,13 +1,17 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
     <date-picker
-      @dateChanged="dateChanged"
+      :error-messages="errorMessages.date"
       :rules="[v => !!v  || 'Item is required']"
+      @dateChanged="dateChanged"
     ></date-picker>
 
     <v-select
       v-model="car"
+      :error-messages="errorMessages.car"
       :items="cars"
+      :loading="isSelectLoading"
+      :disabled="isSelectLoading"
       item-text="text"
       item-value="value"
       label="Car Driven"
@@ -16,6 +20,7 @@
 
     <v-text-field
       v-model="miles"
+      :error-messages="errorMessages.miles"
       label="Miles Driven"
       required
       :rules="[v => !!v  || 'Item is required', v => (v && !isNaN(v)) || 'Must be a number']"
@@ -34,8 +39,8 @@
 </template>
 
 <script>
-import {traxAPI} from "../../traxAPI";
-import DatePicker from "../common/DatePicker";
+import { traxAPI } from "@/traxAPI";
+import DatePicker from "@/components/common/DatePicker";
 
 export default {
   components: {
@@ -47,20 +52,22 @@ export default {
   data() {
     return {
       isLoading: false,
+      isSelectLoading: false,
       valid: true,
+      errorMessages: [],
       cars: [],
       date: null,
       car: null,
       miles: null
     }
   },
-  watch: {},
-  computed: {},
   methods: {
     dateChanged(date) {
       this.date = date;
     },
     fetchCars() {
+      this.isSelectLoading = true;
+
       axios.get(traxAPI.getCarsEndpoint())
         .then(response => {
           let cars = [];
@@ -75,6 +82,9 @@ export default {
         })
         .catch(e => {
           console.log(e);
+        })
+        .finally(() => {
+          this.isSelectLoading = false;
         });
     },
     submit() {
@@ -91,6 +101,7 @@ export default {
           })
           .catch(e => {
             console.log(e);
+            this.errorMessages = e.response.data.errors ?? [];
           })
           .finally(() => {
             this.isLoading = false;
@@ -98,7 +109,8 @@ export default {
       }
     },
     clear() {
-      this.$refs.form.reset()
+      this.$refs.form.reset();
+      this.errorMessages = [];
     }
   },
 }

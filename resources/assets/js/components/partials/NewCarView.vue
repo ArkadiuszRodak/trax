@@ -2,18 +2,21 @@
   <v-form ref="form" v-model="valid" lazy-validation>
     <v-text-field
       v-model="year"
+      :error-messages="errorMessages.year"
       :rules="[v => !!v  || 'Item is required', v => (v && v.length === 4 && !isNaN(v)) || 'Must be 4 digit year']"
       label="Year"
       required
     ></v-text-field>
     <v-text-field
       v-model="make"
+      :error-messages="errorMessages.make"
       label="Make"
       required
       :rules="[v => !!v || 'Item is required']"
     ></v-text-field>
     <v-text-field
       v-model="model"
+      :error-messages="errorMessages.model"
       label="Model"
       required
       :rules="[v => (!!v) || 'Item is required']"
@@ -32,13 +35,14 @@
 </template>
 
 <script>
-import {traxAPI} from "../../traxAPI";
+import { traxAPI } from "@/traxAPI";
 
 export default {
   data() {
     return {
       isLoading: false,
       valid: true,
+      errorMessages: [],
       year: null,
       make: null,
       model: null
@@ -59,6 +63,7 @@ export default {
           })
           .catch(e => {
             console.log(e);
+            this.errorMessages = e.response.data.errors ?? [];
           })
           .finally(() => {
             this.isLoading = false;
@@ -66,9 +71,9 @@ export default {
       }
     },
     clear() {
-      this.$refs.form.reset()
+      this.$refs.form.reset();
+      this.errorMessages = [];
     }
-
   },
 }
 </script>

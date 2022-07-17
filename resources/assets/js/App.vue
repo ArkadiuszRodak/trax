@@ -68,7 +68,7 @@
 
 <script>
 import NprogressContainer from 'vue-nprogress/src/NprogressContainer';
-import TripsView from './components/partials/TripsView.vue';
+import TripsView from '@/components/partials/TripsView.vue';
 
 export default {
   components: {
