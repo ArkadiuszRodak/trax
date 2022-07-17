@@ -10,6 +10,8 @@
       v-model="car"
       :error-messages="errorMessages.car"
       :items="cars"
+      :loading="isSelectLoading"
+      :disabled="isSelectLoading"
       item-text="text"
       item-value="value"
       label="Car Driven"
@@ -50,6 +52,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      isSelectLoading: false,
       valid: true,
       errorMessages: [],
       cars: [],
@@ -63,6 +66,8 @@ export default {
       this.date = date;
     },
     fetchCars() {
+      this.isSelectLoading = true;
+
       axios.get(traxAPI.getCarsEndpoint())
         .then(response => {
           let cars = [];
@@ -77,6 +82,9 @@ export default {
         })
         .catch(e => {
           console.log(e);
+        })
+        .finally(() => {
+          this.isSelectLoading = false;
         });
     },
     submit() {
