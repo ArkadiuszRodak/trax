@@ -13,6 +13,7 @@
     <template #activator="{ on }">
       <v-text-field
         v-model="textFieldValue"
+        :error-messages="errorMessages"
         v-on="on"
         :label="label"
         :rules="rules"
@@ -47,6 +48,10 @@ export default {
       default: null
     },
     rules: {
+      default: null
+    },
+    errorMessages: {
+      type: [String, Array],
       default: null
     }
   },

@@ -1,12 +1,14 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
     <date-picker
-      @dateChanged="dateChanged"
+      :error-messages="errorMessages.date"
       :rules="[v => !!v  || 'Item is required']"
+      @dateChanged="dateChanged"
     ></date-picker>
 
     <v-select
       v-model="car"
+      :error-messages="errorMessages.car"
       :items="cars"
       item-text="text"
       item-value="value"
@@ -16,6 +18,7 @@
 
     <v-text-field
       v-model="miles"
+      :error-messages="errorMessages.miles"
       label="Miles Driven"
       required
       :rules="[v => !!v  || 'Item is required', v => (v && !isNaN(v)) || 'Must be a number']"
@@ -48,14 +51,13 @@ export default {
     return {
       isLoading: false,
       valid: true,
+      errorMessages: [],
       cars: [],
       date: null,
       car: null,
       miles: null
     }
   },
-  watch: {},
-  computed: {},
   methods: {
     dateChanged(date) {
       this.date = date;
@@ -91,6 +93,7 @@ export default {
           })
           .catch(e => {
             console.log(e);
+            this.errorMessages = e.response.data.errors ?? [];
           })
           .finally(() => {
             this.isLoading = false;
@@ -98,7 +101,8 @@ export default {
       }
     },
     clear() {
-      this.$refs.form.reset()
+      this.$refs.form.reset();
+      this.errorMessages = [];
     }
   },
 }
